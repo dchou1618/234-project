@@ -14,3 +14,12 @@ We will be evaluating the various algorithms based on solve rate for each of the
 References
 [1] Agostinelli, Forest, et al. "Solving the Rubik’s cube with deep reinforcement learning and search." Nature Machine Intelligence 1.8 (2019): 356-363.
 [2] Aitsaid, Azzedine. “(Automatic)Curriculum Learning : Solving Rubik’s Cube Beyond PPO Limitations.” Medium, 23 Oct. 2023, medium.com/@ja_aitsaid/automatic-curriculum-learning-solving-rubiks-cube-beyond-ppo-limitations-3e6489b2ff6f. 
+
+## Q-learning
+
+## PPO
+
+## DeepCubeA
+
+1. Setup with python venv and `pip install -r requirements.txt`.
+2. Export the appropriate python paths so relative imports are recognized. See `example.sh`.
