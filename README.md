@@ -22,4 +22,4 @@ References
 ## DeepCubeA
 
 1. Setup with python venv and `pip install -r requirements.txt`.
-2. Export the appropriate python paths so relative imports are recognized. See `example.sh`.
+2. Export the appropriate python paths so relative imports are recognized. See `example.sh`. One would run `source ./example.sh`
