@@ -23,4 +23,4 @@ References
 
 1. Setup with python venv and `pip install -r requirements.txt`.
 2. Export the appropriate python paths so relative imports are recognized. See `example.sh`. One would run `source ./example.sh`
-3. `python ctg_approx/avi.py --env cube222 --states_per_update 500 --batch_size 100  --nnet_name cube222 --max_itrs 1000000 --loss_thresh 0.1 --back_max 1000 --num_update_procs 8`
+3. `python ctg_approx/avi.py --env cube222 --states_per_update 500 --batch_size 100  --nnet_name cube222 --max_itrs 1000000 --loss_thresh 0.1 --back_max 1000 --num_update_procs 8`. The number of states per update needs to exceed the batch size - otherwise, the batch data will be empty.
