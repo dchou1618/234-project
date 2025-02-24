@@ -35,7 +35,6 @@ def train_rubiks_cube_solver():
 
     testing = True
     if testing:
-        env.time_limit = 10
         for i in range(1,15):
             stats = []
             print("env_scramble: " + str(i))
