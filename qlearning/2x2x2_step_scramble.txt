@@ -1,0 +1,120 @@
+results for shuffle = 1
+100.0
+1.0
+--------------------
+results for shuffle = 2
+100.0
+2.0
+--------------------
+results for shuffle = 3
+100.0
+3.0
+--------------------
+results for shuffle = 4
+100.0
+4.0
+--------------------
+results for shuffle = 5
+100.0
+4.744
+--------------------
+results for shuffle = 6
+100.0
+5.688
+--------------------
+results for shuffle = 7
+100.0
+6.5
+--------------------
+results for shuffle = 8
+100.0
+7.382
+--------------------
+results for shuffle = 9
+100.0
+8.266
+--------------------
+results for shuffle = 10
+100.0
+8.944
+--------------------
+results for shuffle = 11
+100.0
+9.774
+--------------------
+results for shuffle = 12
+100.0
+10.536
+--------------------
+results for shuffle = 13
+100.0
+11.364
+--------------------
+results for shuffle = 14
+100.0
+12.1
+--------------------
+results for shuffle = 15
+100.0
+12.566
+--------------------
+results for shuffle = 16
+100.0
+13.038
+--------------------
+results for shuffle = 17
+100.0
+13.452
+--------------------
+results for shuffle = 18
+99.9
+13.963
+--------------------
+results for shuffle = 19
+99.7
+14.504
+--------------------
+results for shuffle = 20
+99.9
+14.489
+--------------------
+results for shuffle = 21
+99.8
+14.87
+--------------------
+results for shuffle = 22
+99.6
+15.25
+--------------------
+results for shuffle = 23
+99.8
+15.136
+--------------------
+results for shuffle = 24
+99.5
+15.569
+--------------------
+results for shuffle = 25
+99.5
+15.828
+--------------------
+results for shuffle = 26
+99.8
+15.586
+--------------------
+results for shuffle = 27
+99.4
+15.886
+--------------------
+results for shuffle = 28
+99.2
+16.18
+--------------------
+results for shuffle = 29
+99.0
+16.33
+--------------------
+results for shuffle = 30
+99.7
+15.805
+--------------------

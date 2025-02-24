@@ -9,6 +9,8 @@ import pickle
 warnings.filterwarnings("ignore")
  
 from rubiks_cube_222_lbl import RubiksCube222EnvLBL
+from skewb import SkewbEnv
+from pyraminx_wo_tips import PyraminxWoTipsEnv
 
 # modified from: https://github.com/DoubleGremlin181/RubiksCubeGym
 
@@ -31,7 +33,9 @@ def train(q_table):
                       f"{GROUP_SIZE} success mean: {np.mean(episode_success[-GROUP_SIZE:]):.4f}")
             print()
 
-        state, _ = env.reset_scramble(num_scramble=min(int(episode/10000) + 1, 14))
+        #state, _ = env.reset_scramble(num_scramble=min(int(episode/10000) + 1, 14))
+        #for skewb
+        state, _ = env.reset(num_scramble=min(int(episode/10000) + 1, 14))
 
         episode_reward = 0
         success = 0
@@ -72,7 +76,7 @@ def plot(GROUP_SIZE, episode_rewards, episode_success):
     moving_avg = np.convolve(episode_rewards, np.ones((GROUP_SIZE,)) / GROUP_SIZE, mode="valid")
     moving_success = np.convolve(episode_success, np.ones((GROUP_SIZE,)) / GROUP_SIZE, mode="valid")
 
-    with open("step_scramble"+op + "_stats" + ".pickle", "wb") as f:
+    with open("skewb_step_scramble"+op + "_stats" + ".pickle", "wb") as f:
         stats = {"reward": episode_rewards, "success": episode_success}
         pickle.dump(stats, f)
 
@@ -85,26 +89,27 @@ def plot(GROUP_SIZE, episode_rewards, episode_success):
     ax2.plot([i for i in range(len(moving_success))], moving_success, color='tab:red', linewidth=2)
     ax2.set_ylabel(f"success {GROUP_SIZE} moving average", color='tab:red')
 
-    fig.savefig("step_scramble"+op + ".png", format='png', dpi=100, bbox_inches='tight')
+    fig.savefig("skewb_step_scramble"+op + ".png", format='png', dpi=100, bbox_inches='tight')
 
 
 def close():
     env.close()
 
 def save_qtable(q_table):
-    with open("step_scramble"+op + "_qtable" + ".pickle", "wb") as f:
+    with open("skewb_step_scramble"+op + "_qtable" + ".pickle", "wb") as f:
         pickle.dump(q_table, f)
 
 
 if __name__ == '__main__':
-    env = RubiksCube222EnvLBL()
+    #env = RubiksCube222EnvLBL()
+    env = SkewbEnv()
 
     parser = argparse.ArgumentParser(description='q learning increase scramble')
     parser.add_argument('-s', '--size', type=int, default=280000, help="Number of episodes")
     args = parser.parse_args()
     episodes_per_process = args.size
     
-    op = f"step_scramble_{args.size}_{datetime.now().strftime('%Y%m%d%H%M%S')}"
+    op = f"skewb_step_scramble_{args.size}_{datetime.now().strftime('%Y%m%d%H%M%S')}"
 
     t = datetime.now()
 
