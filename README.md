@@ -30,3 +30,6 @@ References
 This repository builds on **DeepCubeA**, originally developed by [Forest Agostinelli et al.](https://github.com/forestagostinelli/DeepCubeA). If you use this work in research or projects, please cite the original paper:
 
 > Agostinelli, F., McAleer, S., Shmakov, A., & Baldi, P. (2019). *Solving the Rubik’s cube with deep reinforcement learning and search*. Nature Machine Intelligence, 1(8), 356–363. [DOI:10.1038/s42256-019-0070-z](https://doi.org/10.1038/s42256-019-0070-z)
+
+The RubiksCubeGym environment is also used for data generation that was developed by [Hukmani et al](https://github.com/DoubleGremlin181/RubiksCubeGym):
+> Hukmani, K., Kolekar, S., & Vobugari, S. (2021). *Solving Twisty Puzzles Using Parallel Q-learning.* Engineering Letters, 29(4).
