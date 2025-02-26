@@ -24,3 +24,9 @@ References
 1. Setup with python venv and `pip install -r requirements.txt`.
 2. Export the appropriate python paths so relative imports are recognized. See `example.sh`.
 3. `python ctg_approx/avi.py --env cube222 --states_per_update 500000 --batch_size 5000  --nnet_name cube222 --max_itrs 10000 --loss_thresh 0.01 --back_max 14 --num_update_procs 4 --lr 5e-5 --lr_d 0.99999`. The number of states per update needs to exceed the batch size - otherwise, the batch data will be empty.
+
+## Citing DeepCubeA
+
+This repository builds on **DeepCubeA**, originally developed by [Forest Agostinelli et al.](https://github.com/forestagostinelli/DeepCubeA). If you use this work in research or projects, please cite the original paper:
+
+> Agostinelli, F., McAleer, S., Shmakov, A., & Baldi, P. (2019). *Solving the Rubik’s cube with deep reinforcement learning and search*. Nature Machine Intelligence, 1(8), 356–363. [DOI:10.1038/s42256-019-0070-z](https://doi.org/10.1038/s42256-019-0070-z)
