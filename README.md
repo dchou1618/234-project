@@ -11,12 +11,6 @@ Another area that we intend to explore would be that of curriculum learning, whi
 
 We will be evaluating the various algorithms based on solve rate for each of the 3 Rubik cube variants, as well as the average number of steps taken to reach the solution from a random starting state. We will plot the cumulative reward as well as the solve rate (number of iterations until solved) against the number of training episodes to compare convergence rates between the three learning methods. As part of sensitivity analysis, over different learning rates, discount rates, and batch sizes, we will plot solve rates of each of the cubes over 100, 200, 300 training iterations. 
 
-## References
-
-[1] Agostinelli, Forest, et al. "Solving the Rubik’s cube with deep reinforcement learning and search." Nature Machine Intelligence 1.8 (2019): 356-363.
-
-[2] Aitsaid, Azzedine. “(Automatic)Curriculum Learning : Solving Rubik’s Cube Beyond PPO Limitations.” Medium, 23 Oct. 2023, medium.com/@ja_aitsaid/automatic-curriculum-learning-solving-rubiks-cube-beyond-ppo-limitations-3e6489b2ff6f. 
-
 ## Q-learning
 
 ## PPO
@@ -26,6 +20,12 @@ We will be evaluating the various algorithms based on solve rate for each of the
 1. Setup with python venv and `pip install -r requirements.txt`.
 2. Export the appropriate python paths so relative imports are recognized. See `example.sh`.
 3. `python ctg_approx/avi.py --env cube222 --states_per_update 500000 --batch_size 5000  --nnet_name cube222 --max_itrs 10000 --loss_thresh 0.01 --back_max 14 --num_update_procs 4 --lr 5e-5 --lr_d 0.99999`. The number of states per update needs to exceed the batch size - otherwise, the batch data will be empty.
+
+## References
+
+[1] Agostinelli, Forest, et al. "Solving the Rubik’s cube with deep reinforcement learning and search." Nature Machine Intelligence 1.8 (2019): 356-363.
+
+[2] Aitsaid, Azzedine. “(Automatic)Curriculum Learning : Solving Rubik’s Cube Beyond PPO Limitations.” Medium, 23 Oct. 2023, medium.com/@ja_aitsaid/automatic-curriculum-learning-solving-rubiks-cube-beyond-ppo-limitations-3e6489b2ff6f. 
 
 ## Code Citation
 
