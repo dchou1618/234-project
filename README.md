@@ -19,7 +19,8 @@ We will be evaluating the various algorithms based on solve rate for each of the
 
 1. Setup with python venv and `pip install -r requirements.txt`.
 2. Export the appropriate python paths so relative imports are recognized. See `example.sh`.
-3. `python ctg_approx/avi.py --env cube222 --states_per_update 500000 --batch_size 5000  --nnet_name cube222 --max_itrs 10000 --loss_thresh 0.01 --back_max 14 --num_update_procs 4 --lr 5e-5 --lr_d 0.99999`. The number of states per update needs to exceed the batch size - otherwise, the batch data will be empty.
+3. `python ctg_approx/avi.py --env cube222 --states_per_update 500000 --batch_size 5000  --nnet_name cube222 --max_itrs 10000 --loss_thresh 0.01 --back_max 14 --num_update_procs 4 --lr 5e-4 --lr_d 0.99999`. The number of states per update needs to exceed the batch size - otherwise, the batch data will be empty.
+4. `python search_methods/astar.py --states data/cube222/train/data_0.pkl --model saved_models/cube222/current/ --env cube222 --weight 0.8 --batch_size 5000 --results_dir results/cube222/ --language python --nnet_batch_size 5000` for astar
 
 ## References
 
