@@ -5,7 +5,7 @@ from stable_baselines3 import PPO
 import torch.nn as nn
 import datetime
 
-from rubiks_cube_222_lbl_ppo_convert_multibinary import RubiksCube222EnvLBLPPOB
+from rubiks_cube_222_lbl_ppo_convert_multibinary_distance import RubiksCube222EnvLBLPPOB
 
 date_time = datetime.datetime.now()
 date = date_time.strftime('%m%d%y')
@@ -18,8 +18,10 @@ date = date_time.strftime('%m%d%y')
 def train_rubiks_cube_solver():
     env = RubiksCube222EnvLBLPPOB()
     obs, _ = env.reset()
+    #policy_kwargs = dict(activation_fn=nn.ReLU,
+                    #net_arch=dict(pi=[128, 64], vf=[128, 64])) # for shallow
     policy_kwargs = dict(activation_fn=nn.ReLU,
-                    net_arch=dict(pi=[128, 64], vf=[128, 64]))
+                    net_arch=dict(pi=[128, 64, 64], vf=[128, 64, 64]))
     model = PPO("MlpPolicy", env, verbose=1, policy_kwargs=policy_kwargs, batch_size = 128, learning_rate = 0.00005)
     print(model.policy)
 
@@ -31,16 +33,16 @@ def train_rubiks_cube_solver():
             print(f"training with {scrambles} scrambles, move limit: {env.max_moves}")
             env.reset()
             model.learn(total_timesteps=int(50000*env.max_moves*2))
-        model.save(f"ppo-shallow-{date}")
+        model.save(f"ppo-distance-deep-{date}")
 
     testing = True
-    model = model.load(f"ppo-shallow-022325")
+    model = model.load(f"ppo-distance-deep-{date}")
     if testing:
         for i in range(1,15):
             stats = []
             print("env_scramble: " + str(i))
             moves_i = []
-            for j in range(1000):
+            for j in range(100):
                 env.scrambles = i
                 env.max_moves = 100
                 obs, _ = env.reset()

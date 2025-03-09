@@ -1,22 +1,32 @@
 from rubiks_cube_222_multibinary import RubiksCube222EnvB
 import numpy as np
+import torch
 
 # modified from: https://github.com/DoubleGremlin181/RubiksCubeGym
 # wrapper to convert state space from discrete to multibinary
 
-class RubiksCube222EnvLBLPPOB(RubiksCube222EnvB):
-    def __init__(self):
-        super(RubiksCube222EnvLBLPPOB, self).__init__()
+class RubiksCube222EnvLBLPPOBDC(RubiksCube222EnvB):
+    def __init__(self, reward_model):
+        super(RubiksCube222EnvLBLPPOBDC, self).__init__()
         self.FL = None
         self.OLL = None
         self.time_limit = None
         self.scrambles = 1
         self.max_moves = 50
         self.current_moves = 0
+        solved = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+                             dtype=np.uint8)
+        solved_obs = [COLOR_IDX[TILE_MAP[i]] for i in solved]
+        self.solved_obs = np.eye(6)[solved_obs].flatten()
+        self.reward_model = reward_model
 
     def check_solved(self):
         if self.cube_reduced == "WWWWOOGGRRBBOOGGRRBBYYYY":
             return True
+
+    def manhattan_distance(self):
+        obs = np.eye(6)[self.convert(self.cube)].flatten()
+        return  np.sum(np.abs(self.solved_obs - obs))
 
     def reward(self):
         done = False
@@ -26,7 +36,7 @@ class RubiksCube222EnvLBLPPOB(RubiksCube222EnvB):
             done = True
             return reward, done
 
-        reward = -1
+        reward = -1 - 0.1*self.reward_model(torch.Tensor(self.cube)).item()
         
         self.current_moves += 1
         if self.current_moves >= self.max_moves:

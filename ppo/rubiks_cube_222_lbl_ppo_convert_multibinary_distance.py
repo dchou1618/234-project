@@ -13,10 +13,18 @@ class RubiksCube222EnvLBLPPOB(RubiksCube222EnvB):
         self.scrambles = 1
         self.max_moves = 50
         self.current_moves = 0
+        solved = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+                             dtype=np.uint8)
+        solved_obs = [COLOR_IDX[TILE_MAP[i]] for i in solved]
+        self.solved_obs = np.eye(6)[solved_obs].flatten()
 
     def check_solved(self):
         if self.cube_reduced == "WWWWOOGGRRBBOOGGRRBBYYYY":
             return True
+
+    def manhattan_distance(self):
+        obs = np.eye(6)[self.convert(self.cube)].flatten()
+        return  np.sum(np.abs(self.solved_obs - obs))
 
     def reward(self):
         done = False
@@ -26,7 +34,7 @@ class RubiksCube222EnvLBLPPOB(RubiksCube222EnvB):
             done = True
             return reward, done
 
-        reward = -1
+        reward = -1 - 0.1*self.manhattan_distance()
         
         self.current_moves += 1
         if self.current_moves >= self.max_moves:

@@ -4,6 +4,7 @@ import numpy as np
 from stable_baselines3 import PPO
 import torch.nn as nn
 import datetime
+import random
 
 from rubiks_cube_222_lbl_ppo_convert_multibinary import RubiksCube222EnvLBLPPOB
 
@@ -26,21 +27,21 @@ def train_rubiks_cube_solver():
     training = False
     if training:
         for scrambles in range(1, 15):
-            env.scrambles = scrambles
-            env.max_moves = scrambles * 2
-            print(f"training with {scrambles} scrambles, move limit: {env.max_moves}")
+            env.scrambles = random.randint(1,14) # randomize over here
+            env.max_moves = env.scrambles * 2
+            print(f"training with {env.scrambles} scrambles, move limit: {env.max_moves}")
             env.reset()
             model.learn(total_timesteps=int(50000*env.max_moves*2))
-        model.save(f"ppo-shallow-{date}")
+        model.save(f"ppo-shallow-random-{date}")
 
     testing = True
-    model = model.load(f"ppo-shallow-022325")
+    model = model.load(f"ppo-shallow-random-{date}")
     if testing:
         for i in range(1,15):
             stats = []
             print("env_scramble: " + str(i))
             moves_i = []
-            for j in range(1000):
+            for j in range(100):
                 env.scrambles = i
                 env.max_moves = 100
                 obs, _ = env.reset()
