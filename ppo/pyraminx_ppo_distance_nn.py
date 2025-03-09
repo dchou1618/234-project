@@ -34,7 +34,7 @@ def train_rubiks_cube_solver(model):
 
     start = time.time()
     print(start)
-    training = False
+    training = True
     if training:
         for scrambles in range(1, 15):
             env.scrambles = scrambles
@@ -46,7 +46,7 @@ def train_rubiks_cube_solver(model):
     end = time.time()
     print(end-start)
 
-    testing = True
+    testing = False
     model = model.load(f"pyraminx-distance-nn-deep-{date}")
     if testing:
         for i in range(1,15):

@@ -23,7 +23,7 @@ def train_rubiks_cube_solver():
     model = PPO("MlpPolicy", env, verbose=1, policy_kwargs=policy_kwargs, batch_size = 128, learning_rate = 0.00005)
     print(model.policy)
 
-    training = False
+    training = True
     if training:
         for scrambles in range(1, 15):
             env.scrambles = scrambles
@@ -33,7 +33,7 @@ def train_rubiks_cube_solver():
             model.learn(total_timesteps=int(50000*env.max_moves*2))
         model.save(f"skewb-ppo-shallow-{date}")
 
-    testing = True
+    testing = False
     model = model.load(f"skewb-ppo-shallow-{date}")
     if testing:
         for i in range(1,15):
