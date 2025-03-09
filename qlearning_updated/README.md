@@ -1,0 +1,2 @@
+Run qlearning (random scrambles/ no CL): change env name inside code to switch between environments, then run `python qlearning.py`
+Run qlearning (increase scrambles/ CL): change env name inside code to switch between environments, then run `python qlearning_increase_scramble.py`

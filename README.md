@@ -11,7 +11,9 @@ Another area that we intend to explore would be that of curriculum learning, whi
 
 We will be evaluating the various algorithms based on solve rate for each of the 3 Rubik cube variants, as well as the average number of steps taken to reach the solution from a random starting state. We will plot the cumulative reward as well as the solve rate (number of iterations until solved) against the number of training episodes to compare convergence rates between the three learning methods. As part of sensitivity analysis, over different learning rates, discount rates, and batch sizes, we will plot solve rates of each of the cubes over 100, 200, 300 training iterations. 
 
-## Q-learning
+## Q-learning & PPO
+1. Setup with conda venv and `conda env create -f environment.yml`
+2. Follow instructions in the README in the respective folders to run the code
 
 ## PPO
 
