@@ -36,3 +36,8 @@ This repository builds on **DeepCubeA**, originally developed by [Forest Agostin
 
 The RubiksCubeGym environment is also used for data generation that was developed by [Hukmani et al](https://github.com/DoubleGremlin181/RubiksCubeGym):
 > Hukmani, K., Kolekar, S., & Vobugari, S. (2021). *Solving Twisty Puzzles Using Parallel Q-learning.* Engineering Letters, 29(4).
+
+Other github repos that have been referenced during implementation are:
+https://github.com/WillPalaia/RubiksCubeSolver
+https://github.com/DoubleGremlin181/RubiksCubeRL
+*Noted in individual files which have been modified after drawing inspiration from one of the github

@@ -12,7 +12,7 @@ from rubiks_cube_222_lbl import RubiksCube222EnvLBL
 from skewb import SkewbEnv
 from pyraminx_wo_tips import PyraminxWoTipsEnv
 
-# train function adapted from: https://github.com/DoubleGremlin181/RubiksCubeGym
+# train function adapted from: https://github.com/DoubleGremlin181/RubiksCubeRL
 def train(q_table, env_name, episodes, max_moves = 1000, lr = 0.1, discount = 1, epsilon = 1):
 
     episode_rewards = []
