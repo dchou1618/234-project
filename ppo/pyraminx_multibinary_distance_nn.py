@@ -121,6 +121,9 @@ class PyraminxWoTipsEnvN(gym.Env):
         observation = self.convert()
         return observation, reward, done, False, info
 
+    def check_solved(self):
+        return self.cube_reduced == "RRRRRGBBBBBRRRGGGBBBRGGGGGBYYYYYYYYY"
+    
     def reward(self):
         done = False
 
