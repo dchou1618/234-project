@@ -13,7 +13,7 @@ Another area that we intend to explore would be that of curriculum learning, whi
 ## Q-learning & PPO
 1. Setup with conda venv and `conda env create -f environment.yml`
 2. Follow instructions in the README in the respective folders to run the code
-Trained model .zip files can be found here: https://drive.google.com/drive/folders/1Djy6SVJ3gy8FSlgjCcoVjtJluBlRwd8G?usp=share_link
+Trained model .zip files and data used to plot the various fig can be found here: https://drive.google.com/drive/folders/1Djy6SVJ3gy8FSlgjCcoVjtJluBlRwd8G?usp=share_link
 
 ## DeepCubeA
 
