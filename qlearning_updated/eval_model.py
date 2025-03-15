@@ -59,6 +59,7 @@ if __name__ == '__main__':
             print("results for shuffle = " + str(int(i/100)+1))
             print(np.mean(episode_success_dict[int(i/100)+1]))
             print(np.mean(episode_num_moves_dict[int(i/100)+1]))
+            print(np.std(episode_num_moves_dict[int(i/100)+1]))
             print("-"*20)
     
 
