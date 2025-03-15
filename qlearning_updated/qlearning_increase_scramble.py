@@ -12,7 +12,7 @@ from rubiks_cube_222_lbl import RubiksCube222EnvLBL
 from skewb import SkewbEnv
 from pyraminx_wo_tips import PyraminxWoTipsEnv
 
-# train function adapted from: https://github.com/DoubleGremlin181/RubiksCubeRL
+# train function adapted from: https://github.com/DoubleGremlin181/RubiksCubeGym
 def train(q_table, env_name, episodes, max_moves = 1000, lr = 0.1, discount = 1, epsilon = 1):
 
     episode_rewards = []
@@ -32,6 +32,8 @@ def train(q_table, env_name, episodes, max_moves = 1000, lr = 0.1, discount = 1,
         if env_name == "2x2x2":
             state, _ = env.reset_scramble(num_scramble = min(int(episode/increment) + 1, 14))
         elif env_name == "skewb":
+            state, _ = env.reset(num_scramble=min(int(episode/increment) + 1, 14))
+        else:
             state, _ = env.reset(num_scramble=min(int(episode/increment) + 1, 14))
 
         episode_reward, success = 0, 0
@@ -62,7 +64,7 @@ def train(q_table, env_name, episodes, max_moves = 1000, lr = 0.1, discount = 1,
         episode_success.append(success)
         epsilon = max(0, epsilon - decay_rate)
 
-    #plot(env_name, 1000, episode_rewards, episode_success)
+    plot(env_name, 1000, episode_rewards, episode_success)
 
 
 # plotting function obtained from: https://github.com/DoubleGremlin181/RubiksCubeGym
@@ -99,12 +101,14 @@ if __name__ == '__main__':
     env = SkewbEnv()
 
     episodes, max_moves = 280000, 1000
-    env_name = "2x2x2"
+    env_name = "skewb"
     
     if env_name == "2x2x2":
         env = RubiksCube222EnvLBL()
     elif env_name == "skewb":
         env = SkewbEnv()
+    else:
+        env = PyraminxWoTipsEnv()
 
     op = f"{env_name}_step_scramble_{episodes}_{max_moves}"
     q_table = np.full([env.observation_space.n, env.action_space.n], 0, dtype=np.float32)
@@ -116,5 +120,5 @@ if __name__ == '__main__':
     end = time.time()
     print(end)
     print(end-start)
-    #save_qtable(env_name, q_table)
+    save_qtable(env_name, q_table)
 
