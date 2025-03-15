@@ -32,7 +32,7 @@ We added environments for 2x2, Skewb, and Pyraminx under `DeepCubeA/environments
 
 ## Code Citation
 
-This repository builds on **DeepCubeA**, originally developed by [Forest Agostinelli et al.](https://github.com/forestagostinelli/DeepCubeA). If you use this work in research or projects, please cite the original paper:
+This repository builds on **DeepCubeA**, originally developed by [Forest Agostinelli et al.](https://github.com/forestagostinelli/DeepCubeA):
 
 > Agostinelli, F., McAleer, S., Shmakov, A., & Baldi, P. (2019). *Solving the Rubik’s cube with deep reinforcement learning and search*. Nature Machine Intelligence, 1(8), 356–363. [DOI:10.1038/s42256-019-0070-z](https://doi.org/10.1038/s42256-019-0070-z)
 
