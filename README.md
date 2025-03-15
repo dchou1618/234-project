@@ -17,7 +17,7 @@ Trained model .zip files and data used to plot the various fig can be found here
 
 ## DeepCubeA
 
-We added environments for 2x2, Skewb, and Pyraminx under `DeepCubeA/environments`. 
+We added environments for 2x2, Skewb, and Pyraminx under `DeepCubeA/environments`. The outputs and saved models are in the [drive link](https://drive.google.com/drive/folders/1qhsDOiprHPDzmaPAvM0Onwlh_7hlNRKZ?usp=sharing)
 
 1. Setup with python venv and `pip install -r requirements.txt`.
 2. Export the appropriate python paths so relative imports are recognized. See `example.sh`.
