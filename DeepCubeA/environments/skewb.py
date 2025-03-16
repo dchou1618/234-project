@@ -1,6 +1,7 @@
 from environment_abstract import Environment, State
 import numpy as np
 from torch import nn
+from typing import List, Tuple
 
 class SkewBState(State):
     __slots__ = ['cube', '_hash']
@@ -27,7 +28,7 @@ class SkewBState(State):
 
 class SkewB(Environment):
     """
-    moves borrowed from skewb.py in https://github.com/DoubleGremlin181/RubiksCubeGym
+    Defined moves LRUB consistent with that of https://github.com/DoubleGremlin181/RubiksCubeGym
     """
     moves =  ['L', 'R', 'U', 'B']
     moves_rev = ['L', 'R', 'U', 'B']
@@ -40,7 +41,20 @@ class SkewB(Environment):
         self.MOVE_MAP = {idx: (self.__class__.moves[idx], 1) for idx in range(len(self.__class__.moves))}
         self.goal_state: np.ndarray = np.arange(0, 30, dtype=self.dtype) 
 
-    def _move_np(self, states_np, action, move_type, reps):
+    def _move_np(self, states_np: np.ndarray, action: int, move_type: int, reps: int) -> np.ndarray:
+        """
+        _move_np: takes a state array of 30 elements and 
+        repeats each action 'reps' number of times. MOVE_MAP 
+        only defines moves that are run once.
+        :param state_arr: integer numpy array of elements in the range
+        0 to 29, inclusive.
+        :param action: an integer from 0 to 3 denoting one of the LRUB moves.
+        :param move_type: move_type determines the number of 'repetitions' to apply
+        the action.
+        :param reps: the number of times to apply each move that is repeated 'repetitions'
+        many times.
+        :return: updated state_arr after moves are applied.
+        """
         curr_arr = states_np.copy()
 
         def move(states, action, move_type):
@@ -81,9 +95,13 @@ class SkewB(Environment):
 
         return curr_arr
 
-    def next_state(self, states, action: int):
+    def next_state(self, states: List[SkewBState], action: int) -> Tuple[List[SkewBState], List[float]]:
         """
-        Applies an action to a list of SkewB states and returns the next states.
+        next_state: takes a state and action and obtains the next state from each state in the 'states'
+        variable.
+        :param states: a list of skewb states, each containing skewb array attribute.
+        :param action: an integer 0 to 3 denoting the possible moves to apply
+        :return: next states, costs
         """
         _, repetitions = self.MOVE_MAP[action]
         action, move_type = self.ACTION_MAP[action]
@@ -94,18 +112,20 @@ class SkewB(Environment):
             costs.append(1.0)
         return new_states, costs
 
-    def prev_state(self, states, action: int):
+    def prev_state(self, states: List[SkewBState], action: int) -> Tuple[List[SkewBState], List[float]]:
         """
-        Reverses a move to get the previous state.
+        prev_state: applies inverse move to obtain the previous state.
+        :param states: list of skewb states.
+        :param action: an integer from 0 to 3
+        :return: previous states, costs
         """
-        move = self.moves[action]
-        move_rev_idx = self.moves.index(self.moves_rev[action])
+        return self.next_state(states, action)[0]
 
-        return self.next_state(states, move_rev_idx)[0]
-
-    def generate_goal_states(self, num_states: int, np_format: bool = False):
+    def generate_goal_states(self, num_states: int, np_format: bool = False) -> List[SkewBState]:
         """
-        Generates solved SkewB states.
+        generate_goal_states: generates a list of solved states to apply reverse moves to.
+        :param num_states: number of goal states to generate
+        :return: solved_states - the list of skewbstates of length num_states
         """
         if np_format:
             goal_np = np.expand_dims(self.goal_state.copy(), 0)
@@ -115,16 +135,19 @@ class SkewB(Environment):
 
         return solved_states
 
-    def is_solved(self, states):
+    def is_solved(self, states: List[SkewBState]) -> np.ndarray:
         """
-        Checks if a list of SkewB states are solved.
+        is_solved: taking in a list of skewb states, return whether or not cube is solved.
+        :param states: list of states
+        :return: solved_flags - whether each state is solved or not, matching the goal state.
         """
         states_np = np.stack([state.cube for state in states], axis=0)
         return np.all(states_np == self.goal_state, axis=1)
 
-    def state_to_nnet_input(self, states):
+    def state_to_nnet_input(self, states: List[SkewBState]) -> List[np.ndarray]:
         """
-        Converts states to a format suitable for a neural network.
+        state_to_nnet_input: scales the state array entries by the length of the goal state-1
+        to lead to more stabilized NN training.
         """
         states_np = np.stack([state.cube for state in states], axis=0)
         representation_np = states_np / (len(self.goal_state)-1)
@@ -135,9 +158,9 @@ class SkewB(Environment):
     def get_num_moves(self) -> int:
         return len(self.moves)
 
-    def get_nnet_model(self):
+    def get_nnet_model(self) -> nn.Module:
         """
-        Returns a neural network model for cost-to-go estimation.
+        get_nnet_model: returns the cost-to-go neural network.
         """
         in_dim = len(self.goal_state)
         layers = [nn.Linear(in_dim, 5000), 
@@ -149,11 +172,14 @@ class SkewB(Environment):
         model = nn.Sequential(*layers)
         return model
 
-    def generate_states(self, num_states, backwards_range):
+    def generate_states(self, num_states: int, backwards_range: Tuple[int, int]) -> Tuple[List[SkewBState], List[int]]:
         """
-        Generates scrambled states by applying random moves.
+        generate_states: takes in num_states, backwards_range and returns a new list of states where 
+        each solved state is scrambled an arbitrary amount of times uniformly within the backwards range.
+        :param num_states: number of states to generate
+        :param backwards_range: range of backward moves from solved states that are allowable
+        :return: states, scramble_nums - the list of scrambled states and number of scrambles per list.
         """
-
         states_np = self.generate_goal_states(num_states, np_format=True)
 
         scramble_nums: np.array = np.random.randint(backwards_range[0], backwards_range[1]+1, size=num_states)

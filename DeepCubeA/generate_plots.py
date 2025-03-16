@@ -5,6 +5,12 @@ import matplotlib.ticker as mtick
 
 
 def plot_all(data_lst, env_name):
+    """
+    plot_all: takes in a list of data containing gbfs and astar and saves two plots comparing the methods.
+    :param data_lst: dictionary of gbfs and astar data containing the solution paths, solve times, and number of scrambles.
+    :param env_name: one of cube222, pyraminx, skewb
+    :return: None - saves a plot of average solve rate of average number of moves to solve the puzzle that compare gbfs and astar.
+    """
     tables = []
     data_items = list(data_lst.items())
     for key, data in data_items:
